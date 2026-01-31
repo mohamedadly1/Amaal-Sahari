@@ -1,0 +1,51 @@
+"use client"
+
+import { useLocale } from "@/lib/locale-context"
+import { translations } from "@/lib/i18n"
+import { CheckCircle2 } from "lucide-react"
+import ScrollFade from "./scroll-fade"
+import Image from "next/image"
+
+export default function WhyChooseUs() {
+  const { locale } = useLocale()
+  const t = translations[locale].sections.whyChooseUs
+
+  return (
+    <section className="py-16 md:py-24 bg-[#FAFBF0]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <ScrollFade>
+            <div className="relative h-96 rounded-lg overflow-hidden shadow-lg">
+              <Image
+                src="/images/hospitality-excellence-why-us.jpg"
+                alt="Why Choose Us"
+                fill
+                className="object-cover"
+              />
+            </div>
+          </ScrollFade>
+
+          <div>
+            <ScrollFade>
+              <h2 className="text-4xl md:text-5xl font-bold text-[#2F683E] mb-8">{t.title}</h2>
+            </ScrollFade>
+
+            <div className="grid grid-cols-1 gap-6">
+              {t.items.map((item, index) => (
+                <ScrollFade key={index} delay={index * 50}>
+                  <div className="flex gap-4 group text-left">
+                    <CheckCircle2 className="w-6 h-6 text-[#EA8936] flex-shrink-0 mt-1 group-hover:scale-110 transition-transform" />
+                    <div>
+                      <h3 className="font-semibold text-[#2F683E] mb-2">{item.title}</h3>
+                      <p className="text-black">{item.description}</p>
+                    </div>
+                  </div>
+                </ScrollFade>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}

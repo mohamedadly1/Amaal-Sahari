@@ -1,0 +1,56 @@
+"use client"
+
+import { useLocale } from "@/lib/locale-context"
+import { translations } from "@/lib/i18n"
+import { TrendingUp } from "lucide-react"
+import ScrollFade from "./scroll-fade"
+import Image from "next/image"
+
+export default function CaseStudies() {
+  const { locale } = useLocale()
+  const t = translations[locale].sections.caseStudies
+
+  const images = [
+    "/images/case-study-corporate-transformation.jpg",
+    "/images/case-study-hospitality-excellence.jpg",
+    "/images/case-study-facility-optimization.jpg",
+  ]
+
+  return (
+    <section className="py-16 md:py-24 bg-[#FAFBF0]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <ScrollFade>
+          <div className="text-center mb-12">
+            <h2 className="text-4xl md:text-5xl font-bold text-[#2F683E] mb-4">{t.title}</h2>
+            <p className="text-xl text-black">{t.subtitle}</p>
+          </div>
+        </ScrollFade>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {t.items.map((study, index) => (
+            <ScrollFade key={index} delay={index * 100}>
+              <div className="bg-white rounded-lg overflow-hidden shadow-sm border border-[#EA8936]/20 hover:shadow-md transition-all hover:border-[#EA8936] group">
+                <div className="relative h-48 w-full overflow-hidden bg-gradient-to-br from-[#EA8936]/10 to-[#3EB249]/10">
+                  <Image
+                    src={images[index] || "/placeholder.svg"}
+                    alt={study.title}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+                <div className="p-8 text-center">
+                  <div className="flex items-center gap-3 mb-4 justify-center">
+                    <TrendingUp className="w-6 h-6 text-[#EA8936] group-hover:scale-110 transition-transform" />
+                    <span className="text-sm font-semibold text-[#EA8936]">{study.metrics}</span>
+                  </div>
+                  <h3 className="text-xl font-semibold text-[#2F683E] mb-3">{study.title}</h3>
+                  <p className="text-black">{study.description}</p>
+                </div>
+              </div>
+            </ScrollFade>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
