@@ -2,6 +2,7 @@
 
 import { useLocale } from "@/lib/locale-context"
 import { translations } from "@/lib/i18n"
+import { useContent } from "@/lib/content-context"
 import { CheckCircle } from "lucide-react"
 import ScrollFade from "./scroll-fade"
 import Image from "next/image"
@@ -9,13 +10,13 @@ import Image from "next/image"
 export default function ValueHighlights() {
   const { locale } = useLocale()
   const t = translations[locale].sections.valueHighlights
+  const { content } = useContent()
 
-  const images = [
-    "/images/hygiene-excellence.png",
-    "/images/reliability.png",
-    "/images/sustainability.png",
-    "/images/compliance.png",
-  ]
+  const pillars = content.valueHighlights.pillars.map((pillar) => ({
+    title: pillar[locale].title,
+    description: pillar[locale].description,
+    imageUrl: pillar.imageUrl,
+  }))
 
   return (
     <section className="py-16 md:py-24 bg-[#FAFBF0]">
@@ -28,12 +29,12 @@ export default function ValueHighlights() {
         </ScrollFade>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {t.pillars.map((pillar, index) => (
+          {pillars.map((pillar, index) => (
             <ScrollFade key={index} delay={index * 100}>
               <div className="bg-[#FFEDE2] rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow border border-[#EA8936]/20 hover:border-[#EA8936] group cursor-pointer">
                 <div className="relative h-40 w-full overflow-hidden bg-gradient-to-br from-[#3EB249]/10 to-[#EA8936]/10">
                   <Image
-                    src={images[index] || "/placeholder.svg"}
+                    src={pillar.imageUrl || "/placeholder.svg"}
                     alt={pillar.title}
                     fill
                     className="object-cover group-hover:scale-110 transition-transform duration-300"

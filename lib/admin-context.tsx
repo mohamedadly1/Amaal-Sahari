@@ -27,17 +27,14 @@ export function AdminProvider({ children }: { children: React.ReactNode }) {
   }, [])
 
   const login = (username: string, password: string): boolean => {
-    console.log("[v0] Login attempt:", { username, password, expected: { ADMIN_USERNAME, ADMIN_PASSWORD } })
     const trimmedUsername = username.trim()
     const trimmedPassword = password.trim()
     
     if (trimmedUsername === ADMIN_USERNAME && trimmedPassword === ADMIN_PASSWORD) {
-      console.log("[v0] Login successful")
       setIsAuthenticated(true)
       sessionStorage.setItem("admin_session", "authenticated")
       return true
     }
-    console.log("[v0] Login failed - credentials mismatch")
     return false
   }
 
