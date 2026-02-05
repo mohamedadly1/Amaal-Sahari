@@ -2,35 +2,25 @@
 
 import { useLocale } from "@/lib/locale-context"
 import { translations } from "@/lib/i18n"
+import { useContent } from "@/lib/content-context"
 import Link from "next/link"
 
 export default function Footer() {
   const { locale } = useLocale()
   const t = translations[locale]
+  const { content } = useContent()
 
   return (
     <footer className="bg-[#2F683E] text-[#FAFBF0]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="mb-12 py-8 border-b border-[#FAFBF0]/20">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div className="text-center">
-              <div className="text-4xl md:text-5xl font-bold text-accent mb-2">500+</div>
-              <p className="text-[#FAFBF0]/80">{locale === "ar" ? "المواقع المخدومة" : "Sites Served"}</p>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl md:text-5xl font-bold text-accent mb-2">10,000+</div>
-              <p className="text-[#FAFBF0]/80">{locale === "ar" ? "الفحوصات الشهرية" : "Monthly Inspections"}</p>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl md:text-5xl font-bold text-accent mb-2">
-                2 {locale === "ar" ? "ساعة" : "hours"}
+            {content.footer.stats.map((stat) => (
+              <div key={stat.id} className="text-center">
+                <div className="text-4xl md:text-5xl font-bold text-accent mb-2">{stat.value}</div>
+                <p className="text-[#FAFBF0]/80">{stat[locale].label}</p>
               </div>
-              <p className="text-[#FAFBF0]/80">{locale === "ar" ? "متوسط وقت الاستجابة" : "Avg Response Time"}</p>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl md:text-5xl font-bold text-accent mb-2">98%</div>
-              <p className="text-[#FAFBF0]/80">{locale === "ar" ? "رضا العملاء" : "Client Satisfaction"}</p>
-            </div>
+            ))}
           </div>
         </div>
 
@@ -96,32 +86,32 @@ export default function Footer() {
             </ul>
           </div>
           <div>
-            <h3 className="font-bold mb-4">{t.footer.contact}</h3>
-            <ul className="space-y-2 text-sm text-[#FAFBF0]/80">
-              <li>
-                Phone:{" "}
-                <a href="tel:+201021454545" className="hover:text-[#EA8936] transition-colors">
-                  +201021454545
-                </a>
-              </li>
-              <li>
-                Email:{" "}
-                <a href="mailto:info@softservices.com" className="hover:text-[#EA8936] transition-colors">
-                  info@softservices.com
-                </a>
-              </li>
-              <li>
-                WhatsApp:{" "}
-                <a
-                  href="https://wa.me/201021454545"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-[#EA8936] transition-colors"
-                >
-                  +201021454545
-                </a>
-              </li>
-            </ul>
+<h3 className="font-bold mb-4">{t.footer.contact}</h3>
+  <ul className="space-y-2 text-sm text-[#FAFBF0]/80">
+    <li>
+      Phone:{" "}
+      <a href={`tel:${content.contact.phone}`} className="hover:text-[#EA8936] transition-colors">
+        {content.contact.phone}
+      </a>
+    </li>
+    <li>
+      Email:{" "}
+      <a href={`mailto:${content.contact.email}`} className="hover:text-[#EA8936] transition-colors">
+        {content.contact.email}
+      </a>
+    </li>
+    <li>
+      WhatsApp:{" "}
+      <a
+        href={`https://wa.me/${(content.contact.whatsapp || "").replace(/[^0-9]/g, "")}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="hover:text-[#EA8936] transition-colors"
+      >
+        {content.contact.whatsapp || "+201021454545"}
+      </a>
+    </li>
+  </ul>
           </div>
         </div>
 

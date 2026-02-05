@@ -2,68 +2,52 @@
 import { useState, useRef, useEffect } from "react"
 import { useLocale } from "@/lib/locale-context"
 import { translations } from "@/lib/i18n"
+import { useContent } from "@/lib/content-context"
 import { Button } from "@/components/ui/button"
 import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react"
 import ScrollFade from "./scroll-fade"
 import Link from "next/link"
 import Image from "next/image"
 
-const serviceImages: Record<string, string> = {
-  "housekeeping-janitorial": "/images/housekeeping-janitorial.png",
-  "hospitality-services": "/images/hospitality-services.png",
-  "landscaping-plants": "/images/landscaping-plants.png",
-  "pest-control": "/images/pest-control-outdoor.png",
-  "facade-cleaning": "/images/facade-cleaning.png",
-  "waste-management": "/images/waste-management.png",
-  "manned-security": "/images/manned-security.png",
-}
-
-const serviceSlugMap: Record<string, string> = {
-  "Housekeeping & Janitorial": "housekeeping-janitorial",
-  "Hospitality Services": "hospitality-services",
-  "Landscaping & Plants": "landscaping-plants",
-  "Pest Control": "pest-control",
-  "Façade Cleaning": "facade-cleaning",
-  "Waste Management": "waste-management",
-  "Manned Security": "manned-security",
-}
-
 export default function ServicesCarousel() {
   const { locale } = useLocale()
   const t = translations[locale].sections.services
+  const { content } = useContent()
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isAutoPlay, setIsAutoPlay] = useState(true)
   const autoPlayRef = useRef<NodeJS.Timeout>()
+
+  const services = content.services.items
 
   useEffect(() => {
     if (!isAutoPlay) return
 
     autoPlayRef.current = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % t.items.length)
+      setCurrentIndex((prev) => (prev + 1) % services.length)
     }, 5000)
 
     return () => {
       if (autoPlayRef.current) clearInterval(autoPlayRef.current)
     }
-  }, [isAutoPlay, t.items.length])
+  }, [isAutoPlay, services.length])
 
-  const handlePrev = () => {
+const handlePrev = () => {
     setIsAutoPlay(false)
-    setCurrentIndex((prev) => (prev - 1 + t.items.length) % t.items.length)
+    setCurrentIndex((prev) => (prev - 1 + services.length) % services.length)
   }
 
   const handleNext = () => {
     setIsAutoPlay(false)
-    setCurrentIndex((prev) => (prev + 1) % t.items.length)
+    setCurrentIndex((prev) => (prev + 1) % services.length)
   }
 
   const handleMouseEnter = () => setIsAutoPlay(false)
   const handleMouseLeave = () => setIsAutoPlay(true)
 
   const visibleServices = [
-    t.items[(currentIndex - 1 + t.items.length) % t.items.length],
-    t.items[currentIndex],
-    t.items[(currentIndex + 1) % t.items.length],
+    services[(currentIndex - 1 + services.length) % services.length],
+    services[currentIndex],
+    services[(currentIndex + 1) % services.length],
   ]
 
   return (
@@ -99,8 +83,9 @@ export default function ServicesCarousel() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 px-8">
             {visibleServices.map((service, idx) => {
               const isCenter = idx === 1
-              const slug = serviceSlugMap[service.title] || service.title.toLowerCase().replace(/\s+/g, "-")
-              const imageUrl = serviceImages[slug] || "/images/landscaping-plants.png"
+              const serviceData = service[locale] || { title: "", description: "" }
+              const slug = service.slug || serviceData.title.toLowerCase().replace(/\s+/g, "-")
+              const imageUrl = service.imageUrl || "/images/landscaping-plants.png"
 
               return (
                 <ScrollFade key={`${currentIndex}-${idx}`}>
@@ -113,8 +98,8 @@ export default function ServicesCarousel() {
                   >
                     <div className="relative h-96 md:h-[500px] w-full overflow-hidden group">
                       <Image
-                        src={imageUrl || "/placeholder.svg"}
-                        alt={service.title}
+                        src={imageUrl}
+                        alt={serviceData.title}
                         fill
                         className="object-cover group-hover:scale-110 transition-transform duration-500"
                       />
@@ -124,8 +109,8 @@ export default function ServicesCarousel() {
                         <p className="text-[#EA8936] font-semibold text-sm uppercase tracking-wider mb-2">
                           {locale === "ar" ? "الخدمات" : "SERVICES"}
                         </p>
-                        <h3 className="text-2xl md:text-3xl font-bold mb-3 text-white">{service.title}</h3>
-                        <p className="text-white mb-4 line-clamp-2">{service.description}</p>
+                        <h3 className="text-2xl md:text-3xl font-bold mb-3 text-white">{serviceData.title}</h3>
+                        <p className="text-white mb-4 line-clamp-2">{serviceData.description}</p>
 
                         <Link href={`/services/${slug}`}>
                           <Button className="bg-[#EA8936] hover:bg-[#EA8936]/90 text-white w-fit font-semibold">
