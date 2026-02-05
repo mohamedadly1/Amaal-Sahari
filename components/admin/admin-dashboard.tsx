@@ -109,6 +109,10 @@ export default function AdminDashboard() {
         <Home className="w-4 h-4" />
         <span className="hidden sm:inline">Hero</span>
       </TabsTrigger>
+      <TabsTrigger value="value-highlights" className="flex items-center gap-2">
+        <Layout className="w-4 h-4" />
+        <span className="hidden sm:inline">Value Highlights</span>
+      </TabsTrigger>
       <TabsTrigger value="services" className="flex items-center gap-2">
         <Wrench className="w-4 h-4" />
         <span className="hidden sm:inline">Services</span>
@@ -116,6 +120,10 @@ export default function AdminDashboard() {
       <TabsTrigger value="kpis" className="flex items-center gap-2">
         <BarChart3 className="w-4 h-4" />
         <span className="hidden sm:inline">KPIs</span>
+      </TabsTrigger>
+      <TabsTrigger value="why-choose-us" className="flex items-center gap-2">
+        <Info className="w-4 h-4" />
+        <span className="hidden sm:inline">Why Choose Us</span>
       </TabsTrigger>
       <TabsTrigger value="testimonials" className="flex items-center gap-2">
         <MessageSquare className="w-4 h-4" />
@@ -157,12 +165,20 @@ export default function AdminDashboard() {
     <HeroEditor />
   </TabsContent>
 
+  <TabsContent value="value-highlights" className="space-y-4">
+    <ValueHighlightsEditor />
+  </TabsContent>
+
   <TabsContent value="services" className="space-y-4">
     <ServicesEditor />
   </TabsContent>
 
   <TabsContent value="kpis" className="space-y-4">
     <KpisEditor />
+  </TabsContent>
+
+  <TabsContent value="why-choose-us" className="space-y-4">
+    <WhyChooseUsEditor />
   </TabsContent>
 
   <TabsContent value="testimonials" className="space-y-4">
