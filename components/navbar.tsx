@@ -5,7 +5,7 @@ import type React from "react"
 import { useState } from "react"
 import { useLocale } from "@/lib/locale-context"
 import { translations } from "@/lib/i18n"
-import { Menu, X } from "lucide-react"
+import { Menu, X, Settings } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 
@@ -72,6 +72,13 @@ export default function Navbar() {
               >
                 {locale === "en" ? "العربية" : "English"}
               </button>
+              <Link 
+                href="/admin" 
+                className="p-2 rounded-full hover:bg-[#FAFBF0]/10 transition-colors text-[#FAFBF0]"
+                title={locale === "en" ? "Admin Panel" : "لوحة الإدارة"}
+              >
+                <Settings size={20} />
+              </Link>
             </div>
 
             {/* Mobile Menu Button */}
@@ -110,6 +117,13 @@ export default function Navbar() {
                   <Button className="w-full bg-[#EA8936] hover:bg-[#FAB076] text-[#2F683E] font-semibold">
                     {t.nav.getQuote}
                   </Button>
+                </Link>
+                <Link 
+                  href="/admin" 
+                  className="flex items-center gap-2 px-4 py-2 text-[#FAFBF0] hover:bg-[#3EB249]/20 rounded transition-colors"
+                >
+                  <Settings size={18} />
+                  {locale === "en" ? "Admin Panel" : "لوحة الإدارة"}
                 </Link>
               </div>
             </div>
