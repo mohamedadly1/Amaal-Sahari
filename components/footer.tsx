@@ -103,12 +103,12 @@ export default function Footer() {
     <li>
       WhatsApp:{" "}
       <a
-        href={`https://wa.me/${(content.contact.whatsapp || "").replace(/[^0-9]/g, "")}`}
+        href={`https://wa.me/${content.contact.whatsapp.replace(/[^0-9]/g, "")}`}
         target="_blank"
         rel="noopener noreferrer"
         className="hover:text-[#EA8936] transition-colors"
       >
-        {content.contact.whatsapp || "+201021454545"}
+        {content.contact.whatsapp}
       </a>
     </li>
   </ul>

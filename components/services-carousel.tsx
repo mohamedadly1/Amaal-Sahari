@@ -83,9 +83,8 @@ const handlePrev = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 px-8">
             {visibleServices.map((service, idx) => {
               const isCenter = idx === 1
-              const serviceData = service[locale] || { title: "", description: "" }
-              const slug = service.slug || serviceData.title.toLowerCase().replace(/\s+/g, "-")
-              const imageUrl = service.imageUrl || "/images/landscaping-plants.png"
+              const slug = serviceSlugMap[service.title] || service.title.toLowerCase().replace(/\s+/g, "-")
+              const imageUrl = serviceImages[slug] || "/images/landscaping-plants.png"
 
               return (
                 <ScrollFade key={`${currentIndex}-${idx}`}>
@@ -98,8 +97,8 @@ const handlePrev = () => {
                   >
                     <div className="relative h-96 md:h-[500px] w-full overflow-hidden group">
                       <Image
-                        src={imageUrl}
-                        alt={serviceData.title}
+                        src={imageUrl || "/placeholder.svg"}
+                        alt={service.title}
                         fill
                         className="object-cover group-hover:scale-110 transition-transform duration-500"
                       />
@@ -109,8 +108,8 @@ const handlePrev = () => {
                         <p className="text-[#EA8936] font-semibold text-sm uppercase tracking-wider mb-2">
                           {locale === "ar" ? "الخدمات" : "SERVICES"}
                         </p>
-                        <h3 className="text-2xl md:text-3xl font-bold mb-3 text-white">{serviceData.title}</h3>
-                        <p className="text-white mb-4 line-clamp-2">{serviceData.description}</p>
+                        <h3 className="text-2xl md:text-3xl font-bold mb-3 text-white">{service.title}</h3>
+                        <p className="text-white mb-4 line-clamp-2">{service.description}</p>
 
                         <Link href={`/services/${slug}`}>
                           <Button className="bg-[#EA8936] hover:bg-[#EA8936]/90 text-white w-fit font-semibold">
