@@ -2,6 +2,7 @@
 
 import { useLocale } from "@/lib/locale-context"
 import { translations } from "@/lib/i18n"
+import { useContent } from "@/lib/content-context"
 import { TrendingUp } from "lucide-react"
 import ScrollFade from "./scroll-fade"
 import Image from "next/image"
@@ -9,12 +10,21 @@ import Image from "next/image"
 export default function CaseStudies() {
   const { locale } = useLocale()
   const t = translations[locale].sections.caseStudies
+  const { content } = useContent()
 
-  const images = [
+  const defaultImages = [
     "/images/case-study-corporate-transformation.jpg",
     "/images/case-study-hospitality-excellence.jpg",
     "/images/case-study-facility-optimization.jpg",
   ]
+
+  // Use content from context for dynamic case studies
+  const caseStudyItems = content.caseStudies.items.map((item, index) => ({
+    title: item[locale].title,
+    description: item[locale].description,
+    metrics: item[locale].metrics,
+    imageUrl: item.imageUrl || defaultImages[index] || "/placeholder.svg",
+  }))
 
   return (
     <section className="py-16 md:py-24 bg-[#FAFBF0]">
@@ -27,12 +37,12 @@ export default function CaseStudies() {
         </ScrollFade>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {t.items.map((study, index) => (
+          {caseStudyItems.map((study, index) => (
             <ScrollFade key={index} delay={index * 100}>
               <div className="bg-white rounded-lg overflow-hidden shadow-sm border border-[#EA8936]/20 hover:shadow-md transition-all hover:border-[#EA8936] group">
                 <div className="relative h-48 w-full overflow-hidden bg-gradient-to-br from-[#EA8936]/10 to-[#3EB249]/10">
                   <Image
-                    src={images[index] || "/placeholder.svg"}
+                    src={study.imageUrl}
                     alt={study.title}
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-300"

@@ -2,6 +2,7 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Inter, Cairo } from "next/font/google"
 import { LocaleProvider } from "@/lib/locale-context"
+import { ContentProvider } from "@/lib/content-context"
 import "./globals.css"
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" })
@@ -32,7 +33,9 @@ export default function RootLayout({
         <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet" />
       </head>
       <body className={`${inter.variable} ${cairo.variable} font-sans antialiased`}>
-        <LocaleProvider>{children}</LocaleProvider>
+        <LocaleProvider>
+          <ContentProvider>{children}</ContentProvider>
+        </LocaleProvider>
       </body>
     </html>
   )

@@ -2,6 +2,7 @@
 
 import { useLocale } from "@/lib/locale-context"
 import { translations } from "@/lib/i18n"
+import { useContent } from "@/lib/content-context"
 import { Star } from "lucide-react"
 import ScrollFade from "./scroll-fade"
 import Image from "next/image"
@@ -9,8 +10,18 @@ import Image from "next/image"
 export default function Testimonials() {
   const { locale } = useLocale()
   const t = translations[locale].sections.testimonials
+  const { content } = useContent()
 
   const avatars = ["/images/sarah-johnson.png", "/images/michael-chen.png", "/images/emma-rodriguez.png"]
+
+  // Use content from context for dynamic testimonials
+  const testimonialItems = content.testimonials.items.map((item, index) => ({
+    quote: item[locale].quote,
+    author: item[locale].author,
+    company: item[locale].company,
+    rating: item.rating,
+    avatar: avatars[index] || "/placeholder.svg",
+  }))
 
   return (
     <section className="py-16 md:py-24 bg-[#FAFBF0]">
@@ -20,7 +31,7 @@ export default function Testimonials() {
         </ScrollFade>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {t.items.map((testimonial, index) => (
+          {testimonialItems.map((testimonial, index) => (
             <ScrollFade key={index} delay={index * 100}>
               <div className="bg-white rounded-lg p-8 shadow-sm border border-[#EA8936]/20 hover:shadow-md transition-all hover:border-[#EA8936] group">
                 <div className="flex gap-1 mb-4 justify-center">
@@ -35,7 +46,7 @@ export default function Testimonials() {
                 <div className="flex items-center gap-3 justify-center">
                   <div className="relative w-12 h-12 rounded-full overflow-hidden flex-shrink-0">
                     <Image
-                      src={avatars[index] || "/placeholder.svg"}
+                      src={testimonial.avatar}
                       alt={testimonial.author}
                       fill
                       className="object-cover"
