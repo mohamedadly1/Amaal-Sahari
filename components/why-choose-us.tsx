@@ -2,6 +2,7 @@
 
 import { useLocale } from "@/lib/locale-context"
 import { translations } from "@/lib/i18n"
+import { useContent } from "@/lib/content-context"
 import { CheckCircle2 } from "lucide-react"
 import ScrollFade from "./scroll-fade"
 import Image from "next/image"
@@ -9,6 +10,12 @@ import Image from "next/image"
 export default function WhyChooseUs() {
   const { locale } = useLocale()
   const t = translations[locale].sections.whyChooseUs
+  const { content } = useContent()
+
+  const items = content.whyChooseUs.items.map((item) => ({
+    title: item[locale].title,
+    description: item[locale].description,
+  }))
 
   return (
     <section className="py-16 md:py-24 bg-[#FAFBF0]">
@@ -17,7 +24,7 @@ export default function WhyChooseUs() {
           <ScrollFade>
             <div className="relative h-96 rounded-lg overflow-hidden shadow-lg">
               <Image
-                src="/images/hospitality-excellence-why-us.jpg"
+                src={content.whyChooseUs.imageUrl}
                 alt="Why Choose Us"
                 fill
                 className="object-cover"
@@ -31,7 +38,7 @@ export default function WhyChooseUs() {
             </ScrollFade>
 
             <div className="grid grid-cols-1 gap-6">
-              {t.items.map((item, index) => (
+              {items.map((item, index) => (
                 <ScrollFade key={index} delay={index * 50}>
                   <div className="flex gap-4 group text-left">
                     <CheckCircle2 className="w-6 h-6 text-[#EA8936] flex-shrink-0 mt-1 group-hover:scale-110 transition-transform" />
