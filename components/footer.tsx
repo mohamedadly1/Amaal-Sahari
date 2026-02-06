@@ -4,6 +4,7 @@ import { useLocale } from "@/lib/locale-context"
 import { translations } from "@/lib/i18n"
 import { useContent } from "@/lib/content-context"
 import Link from "next/link"
+import Image from "next/image"
 
 export default function Footer() {
   const { locale } = useLocale()
@@ -13,6 +14,17 @@ export default function Footer() {
   return (
     <footer className="bg-[#2F683E] text-[#FAFBF0]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="mb-8 flex items-center gap-3">
+          <Image
+            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Amaal%20Sahari%20Web%20Logo-JeTkcT88yuJW3ZTgu8RnID1sBhHFbs.png"
+            alt="Amaal Sahari Logo"
+            width={40}
+            height={40}
+            className="h-10 w-auto"
+          />
+          <span className="text-lg font-bold text-[#FAFBF0]">Amaal Sahari</span>
+        </div>
+
         <div className="mb-12 py-8 border-b border-[#FAFBF0]/20">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             {content.footer.stats.map((stat) => (
