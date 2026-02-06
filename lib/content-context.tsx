@@ -423,11 +423,11 @@ const defaultContent: SiteContent = {
       title: "عن أمال الصحاري",
       subtitle: "خدمات شاملة لإدارة المرافق توفر بيئات عمل متكاملة تعزز الإنتاجية والراحة",
       visionTitle: "رؤيتنا",
-      visionDescription: "أن نكون المزود الرائد لحلول إدارة المرافق المتكاملة التي تحول أماكن العمل إلى نظم بيئية مزدهرة حيث يزدهر الموظفون وتتفوق الشركات.",
+      visionDescription: "أن نكون المزود الرائد لحل��ل إدارة المرافق المتكاملة التي تحول أماكن العمل إلى نظم بيئية مزدهرة حيث يزدهر الموظفون وتتفوق الشركات.",
       visionPoints: [
         "إنشاء بيئات عمل مستدامة وصحية",
         "تحفيز الابتكار في إدارة المرافق",
-        "بناء شراكات دائمة مع عملائنا",
+        "بناء شراكات دائمة ��ع عملائنا",
         "تمكين فريقنا لتحقيق التميز",
       ],
       missionTitle: "مهمتنا",
@@ -534,7 +534,7 @@ const defaultContent: SiteContent = {
       {
         id: "3",
         en: { question: "Can services be customized to our needs?", answer: "Absolutely, we understand that each client has unique needs. We offer customized solutions tailored to your specific business requirements." },
-        ar: { question: "هل يمكن تخصيص الخدمات حسب احتياجاتي؟", answer: "بالتأكيد، نتفهم أن كل عميل له احتياجات فريدة. نقدم حلولاً مخصصة مصممة خصيصاً لتلبية متطلبات عملك." },
+        ar: { question: "هل يمكن تخصيص الخدمات حسب احتياجات��؟", answer: "بالتأكيد، نتفهم أن كل عميل له احتياجات فريدة. نقدم حلولاً مخصصة مصممة خصيصاً لتلبية متطلبات عملك." },
       },
       {
         id: "4",
@@ -599,6 +599,7 @@ interface ContentContextType {
   content: SiteContent
   updateContent: (newContent: Partial<SiteContent>) => void
   updateSection: <K extends keyof SiteContent>(section: K, data: SiteContent[K]) => void
+  updateContact: (contact: SiteContent["contact"]) => void
   resetToDefault: () => void
 }
 
@@ -635,6 +636,10 @@ export function ContentProvider({ children }: { children: React.ReactNode }) {
     saveContent({ ...content, [section]: data })
   }
 
+  const updateContact = (contact: SiteContent["contact"]) => {
+    saveContent({ ...content, contact })
+  }
+
   const resetToDefault = () => {
     setContent(defaultContent)
     localStorage.removeItem(STORAGE_KEY)
@@ -646,6 +651,7 @@ export function ContentProvider({ children }: { children: React.ReactNode }) {
         content,
         updateContent,
         updateSection,
+        updateContact,
         resetToDefault,
       }}
     >
