@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Save } from "lucide-react"
+import FileUpload from "../file-upload"
 
 export function ServicesVideoEditor() {
   const { content, updateContent } = useContent()
@@ -29,12 +30,13 @@ export function ServicesVideoEditor() {
 
       <div className="space-y-4">
         <div>
-          <Label htmlFor="servicesvideo-url">Video URL</Label>
-          <Input
-            id="servicesvideo-url"
+          <FileUpload
+            label="Services Section Video"
+            description="Upload video or paste URL (Max 50MB)"
             value={videoUrl}
-            onChange={(e) => setVideoUrl(e.target.value)}
-            placeholder="https://..."
+            onChange={(url) => setVideoUrl(url)}
+            accept="video/*"
+            fileType="video"
           />
         </div>
 

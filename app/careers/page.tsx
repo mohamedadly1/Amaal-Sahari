@@ -4,40 +4,20 @@ import Navbar from "@/components/navbar"
 import Footer from "@/components/footer"
 import { Button } from "@/components/ui/button"
 import { useLocale } from "@/lib/locale-context"
+import { useContent } from "@/lib/content-context"
 import { ArrowRight, Mail, MapPin, Briefcase } from "lucide-react"
 
 export default function CareersPage() {
   const { locale } = useLocale()
+  const { content } = useContent()
+  const isArabic = locale === "ar"
 
-  const positions = [
-    {
-      title: locale === "ar" ? "مدير العمليات" : "Operations Manager",
-      department: locale === "ar" ? "العمليات" : "Operations",
-      location: locale === "ar" ? "القاهرة، مصر" : "Cairo, Egypt",
-      description:
-        locale === "ar"
-          ? "نحتاج إلى مدير عمليات ذو خبرة لإدارة فريقنا وتنسيق الخدمات بكفاءة."
-          : "We're looking for an experienced Operations Manager to oversee our team and coordinate services efficiently.",
-    },
-    {
-      title: locale === "ar" ? "متخصص في خدمات التنظيف" : "Cleaning Services Specialist",
-      department: locale === "ar" ? "الخدمات" : "Services",
-      location: locale === "ar" ? "القاهرة، مصر" : "Cairo, Egypt",
-      description:
-        locale === "ar"
-          ? "انضم إلى فريقنا المتخصص في خدمات التنظيف والصيانة المتقدمة."
-          : "Join our specialized team providing advanced cleaning and maintenance services.",
-    },
-    {
-      title: locale === "ar" ? "مسؤول الموارد البشرية" : "HR Manager",
-      department: locale === "ar" ? "الموارد البشرية" : "Human Resources",
-      location: locale === "ar" ? "القاهرة، مصر" : "Cairo, Egypt",
-      description:
-        locale === "ar"
-          ? "ابحث عن مسؤول موارد بشرية لإدارة التوظيف والتطوير الوظيفي."
-          : "Seeking an HR Manager to handle recruitment and career development.",
-    },
-  ]
+  const positions = content.careers.positions.map((position) => ({
+    title: isArabic ? position.ar.title : position.en.title,
+    department: isArabic ? position.ar.department : position.en.department,
+    location: isArabic ? position.ar.location : position.en.location,
+    description: isArabic ? position.ar.description : position.en.description,
+  }))
 
   return (
     <>

@@ -8,6 +8,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Plus, Trash2, Save } from "lucide-react"
+import FileUpload from "../file-upload"
 
 export default function BlogEditor() {
   const { content, updateSection } = useContent()
@@ -87,8 +88,14 @@ export default function BlogEditor() {
             <CardContent className="space-y-4">
               <div className="grid grid-cols-3 gap-4">
                 <div>
-                  <Label>Image URL</Label>
-                  <Input value={post.imageUrl} onChange={(e) => updatePost(post.id, "imageUrl", e.target.value)} />
+                  <FileUpload
+                    label="Blog Post Image"
+                    description="Upload image or paste URL"
+                    value={post.imageUrl}
+                    onChange={(url) => updatePost(post.id, "imageUrl", url)}
+                    accept="image/*"
+                    fileType="image"
+                  />
                 </div>
                 <div>
                   <Label>Date</Label>

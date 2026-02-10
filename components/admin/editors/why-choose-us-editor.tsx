@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Card } from "@/components/ui/card"
 import { Plus, Trash2 } from "lucide-react"
+import FileUpload from "../file-upload"
 
 export default function WhyChooseUsEditor() {
   const { content, updateContent } = useContent()
@@ -60,11 +61,13 @@ export default function WhyChooseUsEditor() {
       <h3 className="text-xl font-semibold">Why Choose Us Section</h3>
 
       <div>
-        <Label>Section Image URL</Label>
-        <Input
+        <FileUpload
+          label="Section Image"
+          description="Upload image or paste URL"
           value={content.whyChooseUs.imageUrl}
-          onChange={(e) => updateImageUrl(e.target.value)}
-          placeholder="Image URL"
+          onChange={(url) => updateImageUrl(url)}
+          accept="image/*"
+          fileType="image"
         />
       </div>
 

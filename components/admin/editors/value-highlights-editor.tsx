@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Card } from "@/components/ui/card"
 import { Plus, Trash2 } from "lucide-react"
+import FileUpload from "../file-upload"
 
 export default function ValueHighlightsEditor() {
   const { content, updateContent } = useContent()
@@ -74,11 +75,13 @@ export default function ValueHighlightsEditor() {
             </div>
 
             <div>
-              <Label>Image URL</Label>
-              <Input
+              <FileUpload
+                label="Pillar Image"
+                description="Upload image or paste URL"
                 value={pillar.imageUrl}
-                onChange={(e) => updatePillar(pillar.id, "imageUrl", e.target.value)}
-                placeholder="Image URL"
+                onChange={(url) => updatePillar(pillar.id, "imageUrl", url)}
+                accept="image/*"
+                fileType="image"
               />
             </div>
 

@@ -8,6 +8,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Plus, Trash2, Save } from "lucide-react"
+import FileUpload from "../file-upload"
 
 export default function ServicesEditor() {
   const { content, updateSection } = useContent()
@@ -85,7 +86,7 @@ export default function ServicesEditor() {
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="grid grid-cols-2 gap-2">
+              <div className="space-y-4">
                 <div>
                   <Label>Slug</Label>
                   <Input
@@ -93,13 +94,14 @@ export default function ServicesEditor() {
                     onChange={(e) => updateService(service.id, "slug", e.target.value)}
                   />
                 </div>
-                <div>
-                  <Label>Image URL</Label>
-                  <Input
-                    value={service.imageUrl}
-                    onChange={(e) => updateService(service.id, "imageUrl", e.target.value)}
-                  />
-                </div>
+                <FileUpload
+                  label="Service Image"
+                  description="Upload image or paste URL"
+                  value={service.imageUrl}
+                  onChange={(url) => updateService(service.id, "imageUrl", url)}
+                  accept="image/*"
+                  fileType="image"
+                />
               </div>
 
               <div className="space-y-2">

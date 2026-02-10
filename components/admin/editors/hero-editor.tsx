@@ -9,9 +9,10 @@ import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Save, Video } from "lucide-react"
+import FileUpload from "../file-upload"
 
 export default function HeroEditor() {
-  const { content, updateHero } = useContent()
+  const { content, updateSection } = useContent()
   const [hero, setHero] = useState(content.hero)
   const [saved, setSaved] = useState(false)
 
@@ -20,7 +21,7 @@ export default function HeroEditor() {
   }, [content.hero])
 
   const handleSave = () => {
-    updateHero(hero)
+    updateSection("hero", hero)
     setSaved(true)
     setTimeout(() => setSaved(false), 2000)
   }
@@ -38,25 +39,24 @@ export default function HeroEditor() {
         </Button>
       </div>
 
-      {/* Video URL */}
+      {/* Video Upload */}
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Video className="w-5 h-5" />
             Background Video
           </CardTitle>
-          <CardDescription>URL for the hero background video</CardDescription>
+          <CardDescription>Upload or paste URL for the hero background video</CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="space-y-2">
-            <Label htmlFor="videoUrl">Video URL</Label>
-            <Input
-              id="videoUrl"
-              value={hero.videoUrl}
-              onChange={(e) => setHero({ ...hero, videoUrl: e.target.value })}
-              placeholder="https://example.com/video.mp4"
-            />
-          </div>
+          <FileUpload
+            label="Hero Background Video"
+            description="Supported formats: MP4, WebM (Max 50MB)"
+            value={hero.videoUrl}
+            onChange={(url) => setHero({ ...hero, videoUrl: url })}
+            accept="video/*"
+            fileType="video"
+          />
         </CardContent>
       </Card>
 
