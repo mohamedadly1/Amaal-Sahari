@@ -1,6 +1,17 @@
 import { put } from '@vercel/blob'
 import { type NextRequest, NextResponse } from 'next/server'
 
+// Increase body size limit and timeout for video uploads
+export const config = {
+  api: {
+    bodyParser: {
+      sizeLimit: '50mb',
+    },
+  },
+}
+
+export const maxDuration = 60 // 60 seconds for upload
+
 export async function POST(request: NextRequest) {
   try {
     const formData = await request.formData()
