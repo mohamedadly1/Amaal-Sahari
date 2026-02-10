@@ -41,13 +41,13 @@ export default function Navbar() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
-            <Link href="/" className="flex-shrink-0 h-12 flex items-center">
+            <Link href="/" className="flex-shrink-0 flex items-center">
               <Image
                 src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Amaal%20Sahari%20Web%20Logo-JeTkcT88yuJW3ZTgu8RnID1sBhHFbs.png"
                 alt="Amaal Sahari Logo"
-                width={48}
-                height={48}
-                className="h-12 w-12"
+                width={64}
+                height={64}
+                className="h-10 sm:h-12 md:h-14 w-auto"
                 loading="eager"
                 priority
               />
