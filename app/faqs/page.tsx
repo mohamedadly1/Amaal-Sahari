@@ -4,71 +4,20 @@ import Navbar from "@/components/navbar"
 import Footer from "@/components/footer"
 import { Button } from "@/components/ui/button"
 import { useLocale } from "@/lib/locale-context"
+import { useContent } from "@/lib/content-context"
 import { useState } from "react"
 import { ChevronDown, HelpCircle, Zap, Users, Lock } from "lucide-react"
 
 export default function FAQsPage() {
   const { locale } = useLocale()
+  const { content } = useContent()
+  const isArabic = locale === "ar"
   const [openIndex, setOpenIndex] = useState<number | null>(null)
 
-  const faqs = [
-    {
-      question: locale === "ar" ? "ما هي خدمات التنظيف المتوفرة؟" : "What cleaning services do you offer?",
-      answer:
-        locale === "ar"
-          ? "نقدم مجموعة شاملة من خدمات التنظيف بما في ذلك التنظيف اليومي، والتنظيف العميق، وتنظيف النوافذ والواجهات، وإدارة المنطقة الخارجية."
-          : "We offer comprehensive cleaning services including daily cleaning, deep cleaning, window and facade cleaning, and outdoor area management.",
-    },
-    {
-      question: locale === "ar" ? "هل توفرون خدمات الأمن؟" : "Do you provide security services?",
-      answer:
-        locale === "ar"
-          ? "نعم، نوفر خدمات الأمن المسلح وغير المسلح، ومراقبة المنطقة، والدوريات الأمنية لضمان سلامة مرفقك."
-          : "Yes, we provide armed and unarmed security services, area surveillance, and security patrols to ensure your facility's safety.",
-    },
-    {
-      question: locale === "ar" ? "هل يمكن تخصيص الخدمات حسب احتياجاتي؟" : "Can services be customized to our needs?",
-      answer:
-        locale === "ar"
-          ? "بالتأكيد، نتفهم أن كل عميل له احتياجات فريدة. نقدم حلولاً مخصصة مصممة خصيصاً لتلبية متطلبات عملك."
-          : "Absolutely, we understand that each client has unique needs. We offer customized solutions tailored to your specific business requirements.",
-    },
-    {
-      question: locale === "ar" ? "ما هي ساعات عمل الخدمة؟" : "What are your service hours?",
-      answer:
-        locale === "ar"
-          ? "نحن نعمل على مدار 24 ساعة، 7 أيام في الأسبوع. يمكنك الاتصال بنا في أي وقت للحصول على الدعم الفوري والخدمات الطارئة."
-          : "We operate 24/7. You can reach us anytime for immediate support and emergency services.",
-    },
-    {
-      question: locale === "ar" ? "كيف يمكنني الحصول على عرض سعر؟" : "How can I get a quote?",
-      answer:
-        locale === "ar"
-          ? "يمكنك الاتصال بنا عبر الهاتف أو البريد الإلكتروني أو ملء نموذج على موقعنا. سيقوم فريقنا بالاستجابة في غضون 24 ساعة."
-          : "You can contact us via phone or email, or fill out a form on our website. Our team will respond within 24 hours.",
-    },
-    {
-      question: locale === "ar" ? "هل توفرون ضمانات على جودة الخدمة؟" : "Do you provide guarantees on service quality?",
-      answer:
-        locale === "ar"
-          ? "نعم، نلتزم بمعايير جودة عالية. إذا لم تكن راضياً عن الخدمة، سنعمل على تصحيح الموقف فوراً بدون رسوم إضافية."
-          : "Yes, we maintain high quality standards. If you're unsatisfied with any service, we'll correct it immediately at no additional cost.",
-    },
-    {
-      question: locale === "ar" ? "ما هي أسعار الخدمة؟" : "What are your service prices?",
-      answer:
-        locale === "ar"
-          ? "الأسعار تعتمد على نوع الخدمة، حجم المرفق، والمتطلبات المحددة. نقدم عروض تنافسية مع أفضل قيمة مقابل المال."
-          : "Pricing depends on service type, facility size, and specific requirements. We offer competitive rates with excellent value for money.",
-    },
-    {
-      question: locale === "ar" ? "هل يمكنني الاستفسار عن خدمة معينة؟" : "Can I inquire about a specific service?",
-      answer:
-        locale === "ar"
-          ? "بالتأكيد، يمكنك الاستفسار عن أي خدمة من خلال قسم الاتصال. فريقنا المتخصص سيجيب على جميع أسئلتك بالتفصيل."
-          : "Of course, you can inquire about any service through our contact section. Our specialized team will answer all your questions in detail.",
-    },
-  ]
+  const faqs = content.faqs.items.map((item) => ({
+    question: isArabic ? item.ar.question : item.en.question,
+    answer: isArabic ? item.ar.answer : item.en.answer,
+  }))
 
   const features = [
     {

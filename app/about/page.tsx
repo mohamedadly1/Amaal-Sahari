@@ -2,6 +2,7 @@
 
 import { LocaleProvider } from "@/lib/locale-context"
 import { useLocale } from "@/lib/locale-context"
+import { useContent } from "@/lib/content-context"
 import Navbar from "@/components/navbar"
 import Footer from "@/components/footer"
 import { ArrowRight, Zap, Users, Target, Heart, Globe } from "lucide-react"
@@ -10,6 +11,7 @@ import Image from "next/image"
 
 function AboutPageContent() {
   const { locale } = useLocale()
+  const { content } = useContent()
   const isArabic = locale === "ar"
   const [isVisible, setIsVisible] = useState(false)
   const sectionRef = useRef(null)
@@ -28,77 +30,52 @@ function AboutPageContent() {
     return () => observer.disconnect()
   }, [])
 
+  const aboutData = content.about
+  
   const visionContent = {
     en: {
-      title: "Our Vision",
-      description:
-        "To be the leading provider of integrated facility management solutions that transform workplaces into thriving ecosystems where employees flourish and businesses excel.",
-      points: [
-        "Create sustainable, healthy work environments",
-        "Drive innovation in facility management",
-        "Build lasting partnerships with our clients",
-        "Empower our team to deliver excellence",
-      ],
+      title: aboutData.en.visionTitle,
+      description: aboutData.en.visionDescription,
+      points: aboutData.en.visionPoints,
     },
     ar: {
-      title: "رؤيتنا",
-      description:
-        "أن نكون المزود الرائد لحلول إدارة المرافق المتكاملة التي تحول أماكن العمل إلى نظم بيئية مزدهرة حيث يزدهر الموظفون وتتفوق الشركات.",
-      points: [
-        "إنشاء بيئات عمل مستدامة وصحية",
-        "تحفيز الابتكار في إدارة المرافق",
-        "بناء شراكات دائمة مع عملائنا",
-        "تمكين فريقنا لتحقيق التميز",
-      ],
+      title: aboutData.ar.visionTitle,
+      description: aboutData.ar.visionDescription,
+      points: aboutData.ar.visionPoints,
     },
   }
 
   const missionContent = {
     en: {
-      title: "Our Mission",
-      description:
-        "To deliver comprehensive, innovative facility management services that enhance productivity, comfort, and brand value while maintaining the highest standards of sustainability and employee wellbeing.",
-      points: [
-        "Deliver exceptional customer service",
-        "Maintain highest safety and quality standards",
-        "Promote environmental sustainability",
-        "Foster a culture of continuous improvement",
-      ],
+      title: aboutData.en.missionTitle,
+      description: aboutData.en.missionDescription,
+      points: aboutData.en.missionPoints,
     },
     ar: {
-      title: "مهمتنا",
-      description:
-        "تقديم خدمات إدارة مرافق شاملة ومبتكرة تعزز الإنتاجية والراحة والقيمة التجارية مع الحفاظ على أعلى معايير الاستدامة وصحة الموظفين.",
-      points: [
-        "تقديم خدمة عملاء استثنائية",
-        "الحفاظ على أعلى معايير السلامة والجودة",
-        "تعزيز الاستدامة البيئية",
-        "غرس ثقافة التحسين المستمر",
-      ],
+      title: aboutData.ar.missionTitle,
+      description: aboutData.ar.missionDescription,
+      points: aboutData.ar.missionPoints,
     },
   }
 
+  const iconMap: Record<string, typeof Heart> = {
+    Heart,
+    Zap,
+    Users,
+    Globe,
+  }
+
   const coreValues = {
-    en: [
-      {
-        icon: Heart,
-        title: "Care",
-        description: "We genuinely care about our clients, employees, and the environment",
-      },
-      { icon: Zap, title: "Excellence", description: "We strive for excellence in everything we do" },
-      { icon: Users, title: "Teamwork", description: "We believe in the power of collaboration and teamwork" },
-      {
-        icon: Globe,
-        title: "Sustainability",
-        description: "We are committed to sustainable and eco-friendly practices",
-      },
-    ],
-    ar: [
-      { icon: Heart, title: "الرعاية", description: "نهتم براعاية عملائنا وموظفينا والبيئة" },
-      { icon: Zap, title: "التميز", description: "نسعى للتميز في كل ما نقوم به" },
-      { icon: Users, title: "العمل الجماعي", description: "نؤمن بقوة التعاون والعمل الجماعي" },
-      { icon: Globe, title: "الاستدامة", description: "نلتزم بالممارسات المستدامة والصديقة للبيئة" },
-    ],
+    en: aboutData.coreValues.map((v) => ({
+      icon: iconMap[v.icon] || Heart,
+      title: v.en.title,
+      description: v.en.description,
+    })),
+    ar: aboutData.coreValues.map((v) => ({
+      icon: iconMap[v.icon] || Heart,
+      title: v.ar.title,
+      description: v.ar.description,
+    })),
   }
 
   const vision = visionContent[isArabic ? "ar" : "en"]
@@ -119,12 +96,10 @@ function AboutPageContent() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="text-center">
               <h1 className="text-5xl md:text-7xl font-bold mb-6">
-                {isArabic ? "عن أمال الصحاري" : "About Amaal Sahari"}
+                {isArabic ? aboutData.ar.title : aboutData.en.title}
               </h1>
               <p className="text-xl md:text-2xl text-white/90 max-w-3xl mx-auto">
-                {isArabic
-                  ? "خدمات شاملة لإدارة المرافق توفر بيئات عمل متكاملة تعزز الإنتاجية والراحة"
-                  : "Comprehensive facility management services providing integrated workplace solutions that enhance productivity and comfort"}
+                {isArabic ? aboutData.ar.subtitle : aboutData.en.subtitle}
               </p>
             </div>
           </div>
