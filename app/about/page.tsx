@@ -136,7 +136,7 @@ function AboutPageContent() {
                   src="/images/vision-innovation.png"
                   alt="Vision - Innovation and Partnerships"
                   fill
-                  className="object-cover rounded-2xl shadow-2xl"
+                  className="object-cover rounded-2xl shadow-2xl w-auto h-auto"
                   priority
                 />
               </div>
@@ -156,7 +156,7 @@ function AboutPageContent() {
                   src="/images/mission-excellence.png"
                   alt="Mission - Excellence and Sustainability"
                   fill
-                  className="object-cover rounded-2xl shadow-2xl"
+                  className="object-cover rounded-2xl shadow-2xl w-auto h-auto"
                   priority
                 />
               </div>

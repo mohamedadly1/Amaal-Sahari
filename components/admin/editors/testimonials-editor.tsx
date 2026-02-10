@@ -12,7 +12,7 @@ import { Save, Plus, Trash2, Star } from "lucide-react"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
 export default function TestimonialsEditor() {
-  const { content, updateTestimonials } = useContent()
+  const { content, updateSection } = useContent()
   const [testimonials, setTestimonials] = useState(content.testimonials)
   const [saved, setSaved] = useState(false)
 
@@ -21,7 +21,7 @@ export default function TestimonialsEditor() {
   }, [content.testimonials])
 
   const handleSave = () => {
-    updateTestimonials(testimonials)
+    updateSection("testimonials", testimonials)
     setSaved(true)
     setTimeout(() => setSaved(false), 2000)
   }

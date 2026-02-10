@@ -9,7 +9,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Save, Plus, Trash2 } from "lucide-react"
 
 export default function KpisEditor() {
-  const { content, updateKpis } = useContent()
+  const { content, updateSection } = useContent()
   const [kpis, setKpis] = useState(content.kpis)
   const [saved, setSaved] = useState(false)
 
@@ -18,7 +18,7 @@ export default function KpisEditor() {
   }, [content.kpis])
 
   const handleSave = () => {
-    updateKpis(kpis)
+    updateSection("kpis", kpis)
     setSaved(true)
     setTimeout(() => setSaved(false), 2000)
   }

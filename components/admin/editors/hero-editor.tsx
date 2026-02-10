@@ -11,7 +11,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Save, Video } from "lucide-react"
 
 export default function HeroEditor() {
-  const { content, updateHero } = useContent()
+  const { content, updateSection } = useContent()
   const [hero, setHero] = useState(content.hero)
   const [saved, setSaved] = useState(false)
 
@@ -20,7 +20,7 @@ export default function HeroEditor() {
   }, [content.hero])
 
   const handleSave = () => {
-    updateHero(hero)
+    updateSection("hero", hero)
     setSaved(true)
     setTimeout(() => setSaved(false), 2000)
   }

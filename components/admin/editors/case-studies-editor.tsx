@@ -11,7 +11,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Save, Plus, Trash2, Image } from "lucide-react"
 
 export default function CaseStudiesEditor() {
-  const { content, updateCaseStudies } = useContent()
+  const { content, updateSection } = useContent()
   const [caseStudies, setCaseStudies] = useState(content.caseStudies)
   const [saved, setSaved] = useState(false)
 
@@ -20,7 +20,7 @@ export default function CaseStudiesEditor() {
   }, [content.caseStudies])
 
   const handleSave = () => {
-    updateCaseStudies(caseStudies)
+    updateSection("caseStudies", caseStudies)
     setSaved(true)
     setTimeout(() => setSaved(false), 2000)
   }
