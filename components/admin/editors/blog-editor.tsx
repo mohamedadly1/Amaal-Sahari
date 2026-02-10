@@ -94,6 +94,7 @@ export default function BlogEditor() {
                     value={post.imageUrl}
                     onChange={(url) => updatePost(post.id, "imageUrl", url)}
                     accept="image/*"
+                    fileType="image"
                   />
                 </div>
                 <div>

@@ -15,6 +15,7 @@ interface FileUploadProps {
   onChange: (url: string) => void
   accept?: string
   maxSize?: number
+  fileType?: "image" | "video" | "any"
 }
 
 export default function FileUpload({
@@ -24,10 +25,12 @@ export default function FileUpload({
   onChange,
   accept = "image/*,video/*",
   maxSize = 50 * 1024 * 1024,
+  fileType = "any",
 }: FileUploadProps) {
   const [uploading, setUploading] = useState(false)
   const [error, setError] = useState("")
   const [urlInput, setUrlInput] = useState("")
+  const [uploadedFileType, setUploadedFileType] = useState<string>("")
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -59,6 +62,7 @@ export default function FileUpload({
 
       const data = await response.json()
       onChange(data.url)
+      setUploadedFileType(data.type)
       if (fileInputRef.current) {
         fileInputRef.current.value = ""
       }
@@ -76,8 +80,8 @@ export default function FileUpload({
     }
   }
 
-  const isImage = value && (value.includes(".jpg") || value.includes(".png") || value.includes(".webp"))
-  const isVideo = value && (value.includes(".mp4") || value.includes(".webm"))
+  const isImage = fileType === "image" || (fileType === "any" && (uploadedFileType.startsWith("image/") || value.includes(".jpg") || value.includes(".png") || value.includes(".webp")))
+  const isVideo = fileType === "video" || (fileType === "any" && (uploadedFileType.startsWith("video/") || value.includes(".mp4") || value.includes(".webm")))
 
   return (
     <div className="space-y-4">

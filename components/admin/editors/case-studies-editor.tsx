@@ -107,6 +107,7 @@ export default function CaseStudiesEditor() {
                   value={caseStudy.imageUrl}
                   onChange={(url) => updateCaseStudy(caseStudy.id, "imageUrl", url)}
                   accept="image/*"
+                  fileType="image"
                 />
                 {caseStudy.imageUrl && (
                   <div className="mt-2 rounded-lg overflow-hidden border bg-muted aspect-video max-w-xs">

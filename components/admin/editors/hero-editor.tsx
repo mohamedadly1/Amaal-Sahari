@@ -55,6 +55,7 @@ export default function HeroEditor() {
             value={hero.videoUrl}
             onChange={(url) => setHero({ ...hero, videoUrl: url })}
             accept="video/*"
+            fileType="video"
           />
         </CardContent>
       </Card>
