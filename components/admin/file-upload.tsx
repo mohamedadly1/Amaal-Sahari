@@ -56,8 +56,12 @@ export default function FileUpload({
       })
 
       if (!response.ok) {
-        const data = await response.json()
-        throw new Error(data.error || "Upload failed")
+        try {
+          const data = await response.json()
+          throw new Error(data.error || `Upload failed (${response.status})`)
+        } catch {
+          throw new Error(`Upload failed (${response.status}). Please check your file and try again.`)
+        }
       }
 
       const data = await response.json()
