@@ -9,7 +9,7 @@ import {
   Twitter,
   Youtube,
   Music,
-  Snapchat,
+  Share2,
   MessageCircle,
 } from "lucide-react"
 
@@ -21,7 +21,7 @@ const PLATFORM_ICONS: Record<string, React.ReactNode> = {
   twitter: <Twitter className="w-5 h-5" />,
   youtube: <Youtube className="w-5 h-5" />,
   tiktok: <Music className="w-5 h-5" />,
-  snapchat: <Snapchat className="w-5 h-5" />,
+  snapchat: <Share2 className="w-5 h-5" />,
 }
 
 interface SocialMediaIconsProps {
