@@ -3,6 +3,7 @@ import type { Metadata } from "next"
 import { Inter, Cairo } from "next/font/google"
 import { LocaleProvider } from "@/lib/locale-context"
 import { ContentProvider } from "@/lib/content-context"
+import WhatsAppWidget from "@/components/whatsapp-widget"
 import "./globals.css"
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" })
@@ -34,7 +35,10 @@ export default function RootLayout({
       </head>
       <body className={`${inter.variable} ${cairo.variable} font-sans antialiased`}>
         <LocaleProvider>
-          <ContentProvider>{children}</ContentProvider>
+          <ContentProvider>
+            {children}
+            <WhatsAppWidget />
+          </ContentProvider>
         </LocaleProvider>
       </body>
     </html>

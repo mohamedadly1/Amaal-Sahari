@@ -5,6 +5,7 @@ import { translations } from "@/lib/i18n"
 import { useContent } from "@/lib/content-context"
 import Link from "next/link"
 import Image from "next/image"
+import SocialMediaIcons from "./social-media-icons"
 
 export default function Footer() {
   const { locale } = useLocale()
@@ -136,6 +137,9 @@ export default function Footer() {
             <Link href="/terms" className="hover:text-[#FAFBF0] transition-colors">
               {t.footer.terms}
             </Link>
+          </div>
+          <div className="mt-4 md:mt-0">
+            <SocialMediaIcons position="footer" className="text-[#FAFBF0]" />
           </div>
         </div>
       </div>
