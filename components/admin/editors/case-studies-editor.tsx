@@ -9,6 +9,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Save, Plus, Trash2, Image } from "lucide-react"
+import FileUpload from "../file-upload"
 
 export default function CaseStudiesEditor() {
   const { content, updateSection } = useContent()
@@ -100,14 +101,12 @@ export default function CaseStudiesEditor() {
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-2">
-                <Label className="flex items-center gap-2">
-                  <Image className="w-4 h-4" />
-                  Image URL
-                </Label>
-                <Input
+                <FileUpload
+                  label="Case Study Image"
+                  description="Upload image or paste URL"
                   value={caseStudy.imageUrl}
-                  onChange={(e) => updateCaseStudy(caseStudy.id, "imageUrl", e.target.value)}
-                  placeholder="https://example.com/image.jpg"
+                  onChange={(url) => updateCaseStudy(caseStudy.id, "imageUrl", url)}
+                  accept="image/*"
                 />
                 {caseStudy.imageUrl && (
                   <div className="mt-2 rounded-lg overflow-hidden border bg-muted aspect-video max-w-xs">
