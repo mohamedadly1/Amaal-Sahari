@@ -40,6 +40,7 @@ import FooterContactEditor from "./editors/footer-editor"
 import SeoEditor from "./editors/seo-editor"
 import WhatsAppEditor from "./editors/whatsapp-editor"
 import SocialMediaEditor from "./editors/social-media-editor"
+import NewsEditor from "./editors/news-editor"
 import { useContent } from "@/lib/content-context"
 import {
   AlertDialog,
@@ -147,6 +148,10 @@ export default function AdminDashboard() {
         <FileText className="w-4 h-4" />
         <span className="hidden sm:inline">Blog</span>
       </TabsTrigger>
+      <TabsTrigger value="news" className="flex items-center gap-2">
+        <FileText className="w-4 h-4" />
+        <span className="hidden sm:inline">News</span>
+      </TabsTrigger>
       <TabsTrigger value="careers" className="flex items-center gap-2">
         <Users className="w-4 h-4" />
         <span className="hidden sm:inline">Careers</span>
@@ -213,6 +218,10 @@ export default function AdminDashboard() {
 
   <TabsContent value="blog" className="space-y-4">
     <BlogEditor />
+  </TabsContent>
+
+  <TabsContent value="news" className="space-y-4">
+    <NewsEditor />
   </TabsContent>
 
   <TabsContent value="careers" className="space-y-4">

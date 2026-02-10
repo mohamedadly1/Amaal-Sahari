@@ -57,6 +57,8 @@ export default function RootLayout({
         <link rel="canonical" href="https://amaalsahari.com" />
         <link rel="alternate" hrefLang="ar" href="https://amaalsahari.com/ar" />
         <link rel="alternate" hrefLang="en" href="https://amaalsahari.com/en" />
+        <link rel="icon" href="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Amaal%20Sahari%20Web%20Logo-JeTkcT88yuJW3ZTgu8RnID1sBhHFbs.png" type="image/png" />
+        <link rel="apple-touch-icon" href="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Amaal%20Sahari%20Web%20Logo-JeTkcT88yuJW3ZTgu8RnID1sBhHFbs.png" />
         <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet" />
         
         {/* JSON-LD Structured Data */}
