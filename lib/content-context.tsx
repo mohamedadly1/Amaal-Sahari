@@ -166,6 +166,53 @@ export interface SiteContent {
       ar: { label: string }
     }>
   }
+
+  // SEO SETTINGS
+  seo: {
+    general: {
+      defaultMetaTitle: string
+      defaultMetaDescription: string
+      metaKeywords: string
+      faviconUrl: string
+    }
+    pages: Array<{
+      id: string
+      slug: string
+      metaTitle: string
+      metaDescription: string
+      metaKeywords: string
+      canonicalUrl: string
+      ogImage: string
+      twitterCard: string
+    }>
+    integrations: {
+      googleSearchConsoleId: string
+      googleAnalyticsId: string
+      googleTagManagerId: string
+    }
+  }
+
+  // WHATSAPP CONTROL
+  whatsapp: {
+    enabled: boolean
+    phoneNumber: string
+    prefilledMessage: string
+    position: "left" | "right"
+    customIconUrl: string
+  }
+
+  // SOCIAL MEDIA CONTROL
+  socialMedia: {
+    items: Array<{
+      id: string
+      platform: "facebook" | "messenger" | "instagram" | "linkedin" | "twitter" | "youtube" | "tiktok" | "snapchat"
+      enabled: boolean
+      url: string
+      customIconUrl: string
+      position: "header" | "footer" | "floating"
+      openInNewTab: boolean
+    }>
+  }
 }
 
 // Default content pulled from the existing site
@@ -591,6 +638,36 @@ const defaultContent: SiteContent = {
       { id: "2", value: "10,000+", en: { label: "Monthly Inspections" }, ar: { label: "الفحوصات الشهرية" } },
       { id: "3", value: "2 hours", en: { label: "Avg Response Time" }, ar: { label: "متوسط وقت الاستجابة" } },
       { id: "4", value: "98%", en: { label: "Client Satisfaction" }, ar: { label: "رضا العملاء" } },
+    ],
+  },
+  seo: {
+    general: {
+      defaultMetaTitle: "Amaal Sahari - Integrated Facility Management Solutions",
+      defaultMetaDescription: "Comprehensive facility management services providing integrated workplace solutions that enhance productivity and comfort",
+      metaKeywords: "facility management, cleaning services, security, workplace solutions",
+      faviconUrl: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Amaal%20Sahari%20Web%20Logo-JeTkcT88yuJW3ZTgu8RnID1sBhHFbs.png",
+    },
+    pages: [],
+    integrations: {
+      googleSearchConsoleId: "",
+      googleAnalyticsId: "",
+      googleTagManagerId: "",
+    },
+  },
+  whatsapp: {
+    enabled: true,
+    phoneNumber: "+201021454545",
+    prefilledMessage: "Hello, I'm interested in your facility management services.",
+    position: "right",
+    customIconUrl: "",
+  },
+  socialMedia: {
+    items: [
+      { id: "1", platform: "facebook", enabled: true, url: "https://facebook.com", customIconUrl: "", position: "footer", openInNewTab: true },
+      { id: "2", platform: "instagram", enabled: true, url: "https://instagram.com", customIconUrl: "", position: "footer", openInNewTab: true },
+      { id: "3", platform: "linkedin", enabled: true, url: "https://linkedin.com", customIconUrl: "", position: "footer", openInNewTab: true },
+      { id: "4", platform: "twitter", enabled: true, url: "https://twitter.com", customIconUrl: "", position: "footer", openInNewTab: true },
+      { id: "5", platform: "youtube", enabled: true, url: "https://youtube.com", customIconUrl: "", position: "footer", openInNewTab: true },
     ],
   },
 }
