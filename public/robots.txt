@@ -1,24 +1,36 @@
+# Default rules for all user agents
 User-agent: *
 Allow: /
 Disallow: /admin
+Disallow: /admin/
 Disallow: /api
+Disallow: /api/
 
-Sitemap: https://amaalsahari.com/sitemap.xml
-
-# Google
+# Google - Allow full crawling
 User-agent: Googlebot
 Allow: /
+Crawl-delay: 0.5
 
-# Bing
+# Bing - Allow full crawling
 User-agent: Bingbot
 Allow: /
+Crawl-delay: 0.5
 
-# Block bad bots
+# Block bad/suspicious bots
 User-agent: MJ12bot
 Disallow: /
 
 User-agent: SemrushBot
 Disallow: /
 
-# Crawl delay for all bots (in seconds)
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+# General crawl delay
 Crawl-delay: 1
+
+# Sitemap location
+Sitemap: https://amaalsahari.com/sitemap.xml

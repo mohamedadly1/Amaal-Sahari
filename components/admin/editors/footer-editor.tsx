@@ -76,8 +76,11 @@ export default function FooterContactEditor() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-[#2F683E]">Footer & Contact Editor</h2>
-        <Button onClick={handleSave} className="bg-[#2F683E] hover:bg-[#2F683E]/90">
+        <div>
+          <h2 className="text-2xl font-bold">Footer & Contact Editor</h2>
+          <p className="text-muted-foreground">Manage footer layout, links, and contact information</p>
+        </div>
+        <Button onClick={handleSave}>
           <Save className="w-4 h-4 mr-2" />
           {saved ? "Saved!" : "Save Changes"}
         </Button>
