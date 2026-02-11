@@ -1,19 +1,15 @@
 "use client"
 
 import { useState } from "react"
-import { useAdmin } from "@/lib/admin-context"
 import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import {
-  LogOut,
   Home,
   BarChart3,
   MessageSquare,
   Briefcase,
   Phone,
-  Settings,
-  RotateCcw,
   Wrench,
   Info,
   FileText,
@@ -22,13 +18,15 @@ import {
   Layout,
   Search,
   MessageCircle,
-  Share2
+  Share2,
+  Menu
 } from "lucide-react"
 import HeroEditor from "./editors/hero-editor"
 import KpisEditor from "./editors/kpis-editor"
 import TestimonialsEditor from "./editors/testimonials-editor"
 import CaseStudiesEditor from "./editors/case-studies-editor"
 import ContactEditor from "./editors/contact-editor"
+import NavbarEditor from "./editors/navbar-editor"
 import ServicesEditor from "./editors/services-editor"
 import ValueHighlightsEditor from "./editors/value-highlights-editor"
 import WhyChooseUsEditor from "./editors/why-choose-us-editor"
@@ -42,71 +40,13 @@ import WhatsAppEditor from "./editors/whatsapp-editor"
 import SocialMediaEditor from "./editors/social-media-editor"
 import NewsEditor from "./editors/news-editor"
 import { useContent } from "@/lib/content-context"
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
 
 export default function AdminDashboard() {
-  const { logout } = useAdmin()
   const { resetToDefault } = useContent()
   const [activeTab, setActiveTab] = useState("hero")
 
   return (
-    <div className="min-h-screen">
-      {/* Header */}
-      <header className="bg-background border-b sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-              <Settings className="w-5 h-5 text-primary-foreground" />
-            </div>
-            <div>
-              <h1 className="font-bold text-lg">Amaal Sahari Admin</h1>
-              <p className="text-xs text-muted-foreground">Content Management</p>
-            </div>
-          </div>
-          <div className="flex items-center gap-3">
-            <AlertDialog>
-              <AlertDialogTrigger asChild>
-                <Button variant="outline" size="sm">
-                  <RotateCcw className="w-4 h-4 mr-2" />
-                  Reset to Default
-                </Button>
-              </AlertDialogTrigger>
-              <AlertDialogContent>
-                <AlertDialogHeader>
-                  <AlertDialogTitle>Reset all content?</AlertDialogTitle>
-                  <AlertDialogDescription>
-                    This will reset all content to the default values. This action cannot be undone.
-                  </AlertDialogDescription>
-                </AlertDialogHeader>
-                <AlertDialogFooter>
-                  <AlertDialogCancel>Cancel</AlertDialogCancel>
-                  <AlertDialogAction onClick={resetToDefault}>Reset</AlertDialogAction>
-                </AlertDialogFooter>
-              </AlertDialogContent>
-            </AlertDialog>
-            <Button variant="outline" size="sm" asChild>
-              <a href="/" target="_blank" rel="noopener noreferrer">
-                View Site
-              </a>
-            </Button>
-            <Button variant="destructive" size="sm" onClick={logout}>
-              <LogOut className="w-4 h-4 mr-2" />
-              Logout
-            </Button>
-          </div>
-        </div>
-      </header>
-
+    <div className="min-h-screen bg-muted/50">
       {/* Main Content */}
       <main className="container mx-auto px-4 py-8">
 <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
@@ -115,6 +55,10 @@ export default function AdminDashboard() {
       <TabsTrigger value="hero" className="flex items-center gap-2">
         <Home className="w-4 h-4" />
         <span className="hidden sm:inline">Hero</span>
+      </TabsTrigger>
+      <TabsTrigger value="navbar" className="flex items-center gap-2">
+        <Menu className="w-4 h-4" />
+        <span className="hidden sm:inline">Navbar</span>
       </TabsTrigger>
       <TabsTrigger value="value-highlights" className="flex items-center gap-2">
         <Layout className="w-4 h-4" />
@@ -186,6 +130,10 @@ export default function AdminDashboard() {
 
   <TabsContent value="hero" className="space-y-4">
     <HeroEditor />
+  </TabsContent>
+
+  <TabsContent value="navbar" className="space-y-4">
+    <NavbarEditor />
   </TabsContent>
 
   <TabsContent value="value-highlights" className="space-y-4">
