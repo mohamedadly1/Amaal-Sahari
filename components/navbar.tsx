@@ -9,6 +9,7 @@ import { Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import Image from "next/image"
+import SocialMediaIcons from "./social-media-icons"
 
 export default function Navbar() {
   const { locale, setLocale, dir } = useLocale()
@@ -70,6 +71,7 @@ export default function Navbar() {
 
             {/* Desktop CTAs and Language Switcher */}
             <div className="hidden md:flex items-center gap-4">
+              <SocialMediaIcons position="header" className="text-[#FAFBF0] border-r border-[#FAFBF0]/20 pr-4" />
               <Link href="/contact">
                 <Button size="sm" className="bg-[#EA8936] hover:bg-[#FAB076] text-[#2F683E] font-semibold">
                   {t.nav.getQuote}

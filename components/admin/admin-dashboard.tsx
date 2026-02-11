@@ -19,7 +19,10 @@ import {
   FileText,
   Users,
   HelpCircle,
-  Layout
+  Layout,
+  Search,
+  MessageCircle,
+  Share2
 } from "lucide-react"
 import HeroEditor from "./editors/hero-editor"
 import KpisEditor from "./editors/kpis-editor"
@@ -34,6 +37,10 @@ import BlogEditor from "./editors/blog-editor"
 import CareersEditor from "./editors/careers-editor"
 import FAQsEditor from "./editors/faqs-editor"
 import FooterContactEditor from "./editors/footer-editor"
+import SeoEditor from "./editors/seo-editor"
+import WhatsAppEditor from "./editors/whatsapp-editor"
+import SocialMediaEditor from "./editors/social-media-editor"
+import NewsEditor from "./editors/news-editor"
 import { useContent } from "@/lib/content-context"
 import {
   AlertDialog,
@@ -141,6 +148,10 @@ export default function AdminDashboard() {
         <FileText className="w-4 h-4" />
         <span className="hidden sm:inline">Blog</span>
       </TabsTrigger>
+      <TabsTrigger value="news" className="flex items-center gap-2">
+        <FileText className="w-4 h-4" />
+        <span className="hidden sm:inline">News</span>
+      </TabsTrigger>
       <TabsTrigger value="careers" className="flex items-center gap-2">
         <Users className="w-4 h-4" />
         <span className="hidden sm:inline">Careers</span>
@@ -156,6 +167,18 @@ export default function AdminDashboard() {
       <TabsTrigger value="footer" className="flex items-center gap-2">
         <Layout className="w-4 h-4" />
         <span className="hidden sm:inline">Footer</span>
+      </TabsTrigger>
+      <TabsTrigger value="seo" className="flex items-center gap-2">
+        <Search className="w-4 h-4" />
+        <span className="hidden sm:inline">SEO</span>
+      </TabsTrigger>
+      <TabsTrigger value="whatsapp" className="flex items-center gap-2">
+        <MessageCircle className="w-4 h-4" />
+        <span className="hidden sm:inline">WhatsApp</span>
+      </TabsTrigger>
+      <TabsTrigger value="social-media" className="flex items-center gap-2">
+        <Share2 className="w-4 h-4" />
+        <span className="hidden sm:inline">Social Media</span>
       </TabsTrigger>
     </TabsList>
     <ScrollBar orientation="horizontal" />
@@ -197,6 +220,10 @@ export default function AdminDashboard() {
     <BlogEditor />
   </TabsContent>
 
+  <TabsContent value="news" className="space-y-4">
+    <NewsEditor />
+  </TabsContent>
+
   <TabsContent value="careers" className="space-y-4">
     <CareersEditor />
   </TabsContent>
@@ -211,6 +238,18 @@ export default function AdminDashboard() {
 
   <TabsContent value="footer" className="space-y-4">
     <FooterContactEditor />
+  </TabsContent>
+
+  <TabsContent value="seo" className="space-y-4">
+    <SeoEditor />
+  </TabsContent>
+
+  <TabsContent value="whatsapp" className="space-y-4">
+    <WhatsAppEditor />
+  </TabsContent>
+
+  <TabsContent value="social-media" className="space-y-4">
+    <SocialMediaEditor />
   </TabsContent>
 </Tabs>
       </main>

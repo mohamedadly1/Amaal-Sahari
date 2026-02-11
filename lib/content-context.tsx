@@ -121,6 +121,17 @@ export interface SiteContent {
     }>
   }
 
+  // NEWS PAGE
+  news: {
+    items: Array<{
+      id: string
+      imageUrl: string
+      date: string
+      en: { title: string; excerpt: string; fullContent: string; author: string; category: string }
+      ar: { title: string; excerpt: string; fullContent: string; author: string; category: string }
+    }>
+  }
+
   // CAREERS PAGE
   careers: {
     positions: Array<{
@@ -164,6 +175,53 @@ export interface SiteContent {
       value: string
       en: { label: string }
       ar: { label: string }
+    }>
+  }
+
+  // SEO SETTINGS
+  seo: {
+    general: {
+      defaultMetaTitle: string
+      defaultMetaDescription: string
+      metaKeywords: string
+      faviconUrl: string
+    }
+    pages: Array<{
+      id: string
+      slug: string
+      metaTitle: string
+      metaDescription: string
+      metaKeywords: string
+      canonicalUrl: string
+      ogImage: string
+      twitterCard: string
+    }>
+    integrations: {
+      googleSearchConsoleId: string
+      googleAnalyticsId: string
+      googleTagManagerId: string
+    }
+  }
+
+  // WHATSAPP CONTROL
+  whatsapp: {
+    enabled: boolean
+    phoneNumber: string
+    prefilledMessage: string
+    position: "left" | "right"
+    customIconUrl: string
+  }
+
+  // SOCIAL MEDIA CONTROL
+  socialMedia: {
+    items: Array<{
+      id: string
+      platform: "facebook" | "messenger" | "instagram" | "linkedin" | "twitter" | "youtube" | "tiktok" | "snapchat"
+      enabled: boolean
+      url: string
+      customIconUrl: string
+      position: "header" | "footer" | "floating"
+      openInNewTab: boolean
     }>
   }
 }
@@ -500,6 +558,48 @@ const defaultContent: SiteContent = {
       },
     ],
   },
+  news: {
+    items: [
+      {
+        id: "1",
+        imageUrl: "/images/office-cleaning.png",
+        date: "2025-02-10",
+        en: {
+          title: "Amaal Sahari Launches New Green Cleaning Initiative",
+          excerpt: "We're committed to sustainable cleaning practices that protect the environment while maintaining the highest standards.",
+          fullContent: "Amaal Sahari is proud to announce our new eco-friendly cleaning initiative. This groundbreaking program uses biodegradable products and sustainable practices to reduce environmental impact while delivering exceptional results. Our team has been specially trained in green cleaning techniques that are safe for both people and the planet.",
+          author: "Sarah Ahmed",
+          category: "Sustainability"
+        },
+        ar: {
+          title: "أمال الصحاري تطلق مبادرة التنظيف الأخضر الجديدة",
+          excerpt: "نحن ملتزمون بممارسات التنظيف المستدامة التي تحمي البيئة مع الحفاظ على أعلى المعايير.",
+          fullContent: "يسرنا أن نعلن عن مبادرتنا الجديدة للتنظيف الصديق للبيئة. يستخدم هذا البرنامج المبتكر المنتجات القابلة للتحلل والممارسات المستدامة لتقليل التأثير البيئي مع تقديم نتائج استثنائية. تم تدريب فريقنا بشكل خاص على تقنيات التنظيف الأخضر.",
+          author: "سارة أحمد",
+          category: "الاستدامة"
+        },
+      },
+      {
+        id: "2",
+        imageUrl: "/images/facility-management.png",
+        date: "2025-02-05",
+        en: {
+          title: "Excellence in Facility Management Recognized",
+          excerpt: "Amaal Sahari receives industry recognition for outstanding service quality and innovation.",
+          fullContent: "We are honored to announce that Amaal Sahari has been recognized by the International Facility Management Association for excellence in service delivery. This award reflects our commitment to providing world-class facility management solutions that exceed client expectations.",
+          author: "Mohammed Hassan",
+          category: "Awards"
+        },
+        ar: {
+          title: "التميز في إدارة المرافق معترف به",
+          excerpt: "تحصل أمال الصحاري على اعتراف صناعي لجودة الخدمة والابتكار المتفوق.",
+          fullContent: "يشرفنا الإعلان عن أن أمال الصحاري تم الاعتراف بها من قبل الرابطة الدولية لإدارة المرافق لتميزها في تقديم الخدمات. يعكس هذا الجائزة التزامنا بتقديم حلول إدارة مرافق عالمية المستوى تتجاوز توقعات العملاء.",
+          author: "محمد حسن",
+          category: "جوائز"
+        },
+      },
+    ],
+  },
   careers: {
     positions: [
       {
@@ -544,7 +644,7 @@ const defaultContent: SiteContent = {
       {
         id: "5",
         en: { question: "How can I get a quote?", answer: "You can contact us via phone or email, or fill out a form on our website. Our team will respond within 24 hours." },
-        ar: { question: "كيف يمكنني الحصول على عرض سعر؟", answer: "يمكنك الاتصال بنا عبر الهاتف أو البريد الإلكتروني أو ملء نموذج على موقعنا. سيقوم فريقنا بالاستجابة في غضون 24 ساعة." },
+        ar: { question: "كيف يمكنني الحصول على عرض سعر؟", answer: "يمكنك الاتصال بنا عبر الهاتف أو البريد الإلكتروني أو ملء نموذج على م��قعنا. سيقوم فريقنا بالاستجابة في غضون 24 ساعة." },
       },
       {
         id: "6",
@@ -591,6 +691,36 @@ const defaultContent: SiteContent = {
       { id: "2", value: "10,000+", en: { label: "Monthly Inspections" }, ar: { label: "الفحوصات الشهرية" } },
       { id: "3", value: "2 hours", en: { label: "Avg Response Time" }, ar: { label: "متوسط وقت الاستجابة" } },
       { id: "4", value: "98%", en: { label: "Client Satisfaction" }, ar: { label: "رضا العملاء" } },
+    ],
+  },
+  seo: {
+    general: {
+      defaultMetaTitle: "Amaal Sahari - Integrated Facility Management Solutions",
+      defaultMetaDescription: "Comprehensive facility management services providing integrated workplace solutions that enhance productivity and comfort",
+      metaKeywords: "facility management, cleaning services, security, workplace solutions",
+      faviconUrl: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Amaal%20Sahari%20Web%20Logo-JeTkcT88yuJW3ZTgu8RnID1sBhHFbs.png",
+    },
+    pages: [],
+    integrations: {
+      googleSearchConsoleId: "",
+      googleAnalyticsId: "",
+      googleTagManagerId: "",
+    },
+  },
+  whatsapp: {
+    enabled: true,
+    phoneNumber: "+201021454545",
+    prefilledMessage: "Hello, I'm interested in your facility management services.",
+    position: "right",
+    customIconUrl: "",
+  },
+  socialMedia: {
+    items: [
+      { id: "1", platform: "facebook", enabled: true, url: "https://facebook.com", customIconUrl: "", position: "footer", openInNewTab: true },
+      { id: "2", platform: "instagram", enabled: true, url: "https://instagram.com", customIconUrl: "", position: "footer", openInNewTab: true },
+      { id: "3", platform: "linkedin", enabled: true, url: "https://linkedin.com", customIconUrl: "", position: "footer", openInNewTab: true },
+      { id: "4", platform: "twitter", enabled: true, url: "https://twitter.com", customIconUrl: "", position: "footer", openInNewTab: true },
+      { id: "5", platform: "youtube", enabled: true, url: "https://youtube.com", customIconUrl: "", position: "footer", openInNewTab: true },
     ],
   },
 }

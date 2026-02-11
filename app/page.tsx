@@ -7,9 +7,9 @@ import ServicesCarousel from "@/components/services-carousel"
 import WhyChooseUs from "@/components/why-choose-us"
 import CaseStudies from "@/components/case-studies"
 import Testimonials from "@/components/testimonials"
-import FloatingCTA from "@/components/floating-cta"
 import ServicesVideoSection from "@/components/services-video-section"
 import KPIs from "@/components/kpis"
+import HomeNewsSection from "@/components/home-news-section"
 
 export default function Home() {
   return (
@@ -28,9 +28,9 @@ export default function Home() {
           <CaseStudies />
         </div>
         <Testimonials />
+        <HomeNewsSection />
       </main>
       <Footer />
-      <FloatingCTA />
     </>
   )
 }
