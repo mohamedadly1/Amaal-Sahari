@@ -1,33 +1,14 @@
-/** @type {import('next').NextConfig} */
+ /** @type {import('next').NextConfig} */
 const nextConfig = {
   typescript: {
+    // بيبعد عن أي مشاكل في الـ Build بسبب الأنواع
     ignoreBuildErrors: true,
   },
   images: {
+    // مهم جداً لاستضافة هوستنجر عشان الصور تظهر صح
     unoptimized: true,
   },
-  async redirects() {
-    return [
-      // Redirect old /page route to home
-      {
-        source: '/page',
-        destination: '/',
-        permanent: true,
-      },
-      // Redirect old page variations to home
-      {
-        source: '/page/:path*',
-        destination: '/:path*',
-        permanent: true,
-      },
-      // Redirect any double slashes
-      {
-        source: '//:path*',
-        destination: '/:path*',
-        permanent: true,
-      },
-    ]
-  },
+  // حذفنا قسم الـ redirects مؤقتاً لحل مشكلة الحلقة المفرغة
 }
 
 export default nextConfig
