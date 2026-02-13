@@ -48,7 +48,7 @@ export default function Navbar() {
                 alt="Amaal Sahari Logo"
                 width={64}
                 height={64}
-                className="h-10 sm:h-12 md:h-14 w-auto"
+                className="h-10 sm:h-12 md:h-14 w-auto object-contain"
                 loading="eager"
                 priority
               />
