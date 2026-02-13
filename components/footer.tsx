@@ -21,7 +21,7 @@ export default function Footer() {
             alt="Amaal Sahari Logo"
             width={40}
             height={40}
-            className="h-10 w-auto"
+            className="h-10 w-auto object-contain"
           />
           <span className="text-lg font-bold text-[#FAFBF0]">Amaal Sahari</span>
         </div>
