@@ -1,4 +1,3 @@
-import { put } from '@vercel/blob'
 import { type NextRequest, NextResponse } from 'next/server'
 
 // Increase timeout for large file uploads
@@ -8,9 +7,10 @@ export async function POST(request: NextRequest) {
   try {
     console.log('[v0] Upload endpoint called')
     
-    // Check if Blob token is available
-    if (!process.env.BLOB_READ_WRITE_TOKEN) {
-      console.error('[v0] BLOB_READ_WRITE_TOKEN not set')
+    // Get Hostinger upload URL from environment variable
+    const hostingerUploadUrl = process.env.HOSTINGER_UPLOAD_URL
+    if (!hostingerUploadUrl) {
+      console.error('[v0] HOSTINGER_UPLOAD_URL not set')
       return NextResponse.json(
         { error: 'Upload service not configured' },
         { status: 500 }
@@ -47,30 +47,35 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Convert File to Buffer for put() method
-    console.log('[v0] Converting file to buffer')
-    const buffer = await file.arrayBuffer()
-    const timestamp = Date.now()
-    
-    // Sanitize filename - remove special characters and spaces
-    const sanitizedName = file.name
-      .replace(/[^a-zA-Z0-9.-]/g, '-')
-      .replace(/--+/g, '-')
-      .toLowerCase()
-    const filename = `${timestamp}-${sanitizedName}`
-    
-    console.log('[v0] Starting blob upload with filename:', filename)
-    const blob = await put(filename, buffer, {
-      access: 'public',
-      contentType: file.type,
+    // Convert File to FormData for Hostinger
+    console.log('[v0] Preparing file for Hostinger upload')
+    const uploadFormData = new FormData()
+    uploadFormData.append('file', file)
+
+    // Upload to Hostinger
+    console.log('[v0] Sending to Hostinger:', hostingerUploadUrl)
+    const response = await fetch(hostingerUploadUrl, {
+      method: 'POST',
+      body: uploadFormData,
     })
-    console.log('[v0] Blob upload successful:', blob.url)
+
+    if (!response.ok) {
+      const errorText = await response.text()
+      console.error('[v0] Hostinger upload failed:', response.status, errorText)
+      return NextResponse.json(
+        { error: `Upload to Hostinger failed: ${response.status}` },
+        { status: 500 }
+      )
+    }
+
+    const data = await response.json()
+    console.log('[v0] Hostinger upload successful:', data.url)
 
     return NextResponse.json({
-      url: blob.url,
-      filename: file.name,
-      size: file.size,
-      type: file.type,
+      url: data.url,
+      filename: data.filename,
+      size: data.size,
+      type: data.type,
     })
   } catch (error) {
     console.error('[v0] Upload error details:', error)
