@@ -6,6 +6,17 @@ export const maxDuration = 60 // 60 seconds for upload
 
 export async function POST(request: NextRequest) {
   try {
+    console.log('[v0] Upload endpoint called')
+    
+    // Check if Blob token is available
+    if (!process.env.BLOB_READ_WRITE_TOKEN) {
+      console.error('[v0] BLOB_READ_WRITE_TOKEN not set')
+      return NextResponse.json(
+        { error: 'Upload service not configured' },
+        { status: 500 }
+      )
+    }
+
     const formData = await request.formData()
     const file = formData.get('file') as File
 
@@ -36,13 +47,22 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Upload to Vercel Blob with timestamp to ensure unique filenames
+    // Convert File to Buffer for put() method
+    console.log('[v0] Converting file to buffer')
+    const buffer = await file.arrayBuffer()
     const timestamp = Date.now()
-    const filename = `${timestamp}-${file.name}`
     
-    console.log('[v0] Starting blob upload:', filename)
-    const blob = await put(filename, file, {
+    // Sanitize filename - remove special characters and spaces
+    const sanitizedName = file.name
+      .replace(/[^a-zA-Z0-9.-]/g, '-')
+      .replace(/--+/g, '-')
+      .toLowerCase()
+    const filename = `${timestamp}-${sanitizedName}`
+    
+    console.log('[v0] Starting blob upload with filename:', filename)
+    const blob = await put(filename, buffer, {
       access: 'public',
+      contentType: file.type,
     })
     console.log('[v0] Blob upload successful:', blob.url)
 
@@ -53,8 +73,9 @@ export async function POST(request: NextRequest) {
       type: file.type,
     })
   } catch (error) {
+    console.error('[v0] Upload error details:', error)
     const errorMessage = error instanceof Error ? error.message : String(error)
-    console.error('[v0] Upload error:', errorMessage)
+    console.error('[v0] Upload error message:', errorMessage)
     return NextResponse.json(
       { error: `Upload failed: ${errorMessage}` },
       { status: 500 }

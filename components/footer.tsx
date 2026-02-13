@@ -16,13 +16,15 @@ export default function Footer() {
     <footer className="bg-[#2F683E] text-[#FAFBF0]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="mb-8 flex items-center gap-3">
-          <Image
-            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Amaal%20Sahari%20Web%20Logo-JeTkcT88yuJW3ZTgu8RnID1sBhHFbs.png"
-            alt="Amaal Sahari Logo"
-            width={40}
-            height={40}
-            className="h-10 w-auto object-contain"
-          />
+          <div className="h-10 w-auto relative">
+            <Image
+              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Amaal%20Sahari%20Web%20Logo-JeTkcT88yuJW3ZTgu8RnID1sBhHFbs.png"
+              alt="Amaal Sahari Logo"
+              fill
+              sizes="40px"
+              className="object-contain"
+            />
+          </div>
           <span className="text-lg font-bold text-[#FAFBF0]">Amaal Sahari</span>
         </div>
 
