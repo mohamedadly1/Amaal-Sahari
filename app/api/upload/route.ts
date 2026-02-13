@@ -54,21 +54,44 @@ export async function POST(request: NextRequest) {
 
     // Upload to Hostinger
     console.log('[v0] Sending to Hostinger:', hostingerUploadUrl)
-    const response = await fetch(hostingerUploadUrl, {
-      method: 'POST',
-      body: uploadFormData,
-    })
-
-    if (!response.ok) {
-      const errorText = await response.text()
-      console.error('[v0] Hostinger upload failed:', response.status, errorText)
+    let response
+    try {
+      response = await fetch(hostingerUploadUrl, {
+        method: 'POST',
+        body: uploadFormData,
+      })
+    } catch (fetchError) {
+      console.error('[v0] Network error connecting to Hostinger:', fetchError)
       return NextResponse.json(
-        { error: `Upload to Hostinger failed: ${response.status}` },
+        { error: `Cannot connect to Hostinger: ${fetchError instanceof Error ? fetchError.message : 'Unknown error'}` },
         { status: 500 }
       )
     }
 
-    const data = await response.json()
+    console.log('[v0] Hostinger response status:', response.status)
+    
+    if (!response.ok) {
+      const errorText = await response.text()
+      console.error('[v0] Hostinger upload failed:', response.status, errorText)
+      return NextResponse.json(
+        { error: `Upload to Hostinger failed with status ${response.status}. Details: ${errorText}` },
+        { status: 500 }
+      )
+    }
+
+    let data
+    try {
+      data = await response.json()
+    } catch (jsonError) {
+      console.error('[v0] Failed to parse Hostinger response:', jsonError)
+      const responseText = await response.text()
+      console.error('[v0] Response text:', responseText)
+      return NextResponse.json(
+        { error: `Invalid response from Hostinger: ${responseText}` },
+        { status: 500 }
+      )
+    }
+
     console.log('[v0] Hostinger upload successful:', data.url)
 
     return NextResponse.json({
