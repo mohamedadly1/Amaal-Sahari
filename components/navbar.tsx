@@ -48,6 +48,7 @@ export default function Navbar() {
                   src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Amaal%20Sahari%20Web%20Logo-JeTkcT88yuJW3ZTgu8RnID1sBhHFbs.png"
                   alt="Amaal Sahari Logo"
                   fill
+                  sizes="(max-width: 640px) 40px, (max-width: 768px) 48px, 56px"
                   className="object-contain"
                   loading="eager"
                   priority
