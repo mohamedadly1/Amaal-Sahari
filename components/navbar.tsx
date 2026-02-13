@@ -43,15 +43,16 @@ export default function Navbar() {
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
             <Link href="/" className="flex-shrink-0 flex items-center">
-              <Image
-                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Amaal%20Sahari%20Web%20Logo-JeTkcT88yuJW3ZTgu8RnID1sBhHFbs.png"
-                alt="Amaal Sahari Logo"
-                width={64}
-                height={64}
-                className="h-10 sm:h-12 md:h-14 w-auto object-contain"
-                loading="eager"
-                priority
-              />
+              <div className="h-10 sm:h-12 md:h-14 w-auto relative">
+                <Image
+                  src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Amaal%20Sahari%20Web%20Logo-JeTkcT88yuJW3ZTgu8RnID1sBhHFbs.png"
+                  alt="Amaal Sahari Logo"
+                  fill
+                  className="object-contain"
+                  loading="eager"
+                  priority
+                />
+              </div>
             </Link>
 
             {/* Desktop Navigation */}
